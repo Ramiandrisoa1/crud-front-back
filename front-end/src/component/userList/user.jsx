@@ -14,6 +14,7 @@ const User = () => {
 
   const deleteUser = (id) => {
     setUser(users.filter((user) => user._id !== id));
+    userService.deleteUser(id);
   };
 
   const listUser = users.map((user) => (
