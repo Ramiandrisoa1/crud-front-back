@@ -21,7 +21,27 @@ const getUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const id = req.params.id;
+  try {
+    User.findByIdAndRemove(id).then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: ` id=${id} ne peut pas etre supprimer`,
+        });
+      } else {
+        res.send({
+          message: 'suppression user avec succes!',
+        });
+      }
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
 module.exports = {
   addUser,
   getUser,
+  deleteUser,
 };
