@@ -13,12 +13,23 @@ const addUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  try {
-    const user = await User.find({});
-    return res.status(201).json(user);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
+  const user = await User.find();
+  User.find()
+    .then((data) => {
+      console.log(data);
+      if (!data) {
+        res.status(404).send({
+          message: 'user null',
+        });
+      } else {
+        return res.status(201).json(user);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: 'error',
+      });
+    });
 };
 
 const deleteUser = async (req, res) => {
