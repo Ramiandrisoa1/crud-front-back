@@ -16,7 +16,6 @@ const getUser = async (req, res) => {
   const user = await User.find();
   User.find()
     .then((data) => {
-      console.log(data);
       if (!data) {
         res.status(404).send({
           message: 'user null',
@@ -53,8 +52,33 @@ const deleteUser = async (req, res) => {
     });
 };
 
+const updateUser = async (req, res) => {
+  console.log(req.body);
+  if (!req.body) {
+    return res.status(400).send({
+      message: 'Les données à modifiers ne peuvent pas etre vide',
+    });
+  }
+  const id = req.params.id;
+  User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Product with id=${id}. Maybe Product was not found!`,
+        });
+      } else
+        res.send({ message: `Product  with id=${id} update avec succes.` });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: 'Erreur updating user with id=' + id,
+      });
+    });
+};
+
 module.exports = {
   addUser,
   getUser,
   deleteUser,
+  updateUser,
 };
