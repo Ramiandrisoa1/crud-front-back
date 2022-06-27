@@ -12,13 +12,17 @@ const User = () => {
     });
   }, []);
 
+  const deleteUser = (id) => {
+    setUser(users.filter((user) => user._id !== id));
+  };
+
   const listUser = users.map((user) => (
     <tr key={user._id}>
       <td>{user.name}</td>
       <td>{user.email}</td>
       <td>{user.poste}</td>
       <td>
-        <button>Delete</button>
+        <button onClick={() => deleteUser(user._id)}>Delete</button>
         <button>edit</button>
       </td>
     </tr>
