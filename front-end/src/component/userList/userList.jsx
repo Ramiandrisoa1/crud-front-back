@@ -12,12 +12,7 @@ const UserList = () => {
       <Button variant='primary' onClick={handleShow}>
         Launch demo modal
       </Button>
-      <Modals
-        handleClose={handleClose}
-        show={show}
-        handleShow={handleShow}
-        setShow={setShow}
-      />
+      <Modals handleClose={handleClose} show={show} />
       <table>
         <thead>
           <tr>
