@@ -15,10 +15,16 @@ const addUser = async (payload) => {
   return response;
 };
 
+const editUser = async (id, payload) => {
+  const response = await api.put(`/edit/${id}`, payload);
+  return response;
+};
+
 const userService = {
   getAllUser,
   deleteUser,
   addUser,
+  editUser,
 };
 
 export default userService;
