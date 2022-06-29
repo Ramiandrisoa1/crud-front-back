@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { ShowContext } from '../userList/userList';
+import FormAddEdit from '../form/form';
 
 function Modals() {
   const value = useContext(ShowContext);
@@ -10,7 +11,9 @@ function Modals() {
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <FormAddEdit />
+        </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={value.handleClose}>
             Close
