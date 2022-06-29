@@ -13,7 +13,7 @@ const UserList = () => {
     <>
       <div>
         <Button variant='primary' onClick={handleShow}>
-          Launch demo modal
+          Ajout
         </Button>
         <ShowContext.Provider value={{ show, handleClose }}>
           <Modals />
