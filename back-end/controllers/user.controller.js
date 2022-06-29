@@ -53,7 +53,6 @@ const deleteUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  console.log(req.body);
   if (!req.body) {
     return res.status(400).send({
       message: 'Les données à modifiers ne peuvent pas etre vide',
