@@ -7,8 +7,13 @@ const ShowContext = createContext();
 
 const UserList = () => {
   const [show, setShow] = useState(false);
+  const [data, setData] = useState(null);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const editUser = (user) => {
+    setData(user);
+    setShow(true);
+  };
   const initialValue = [];
 
   const [users, setUser] = useState(initialValue);
@@ -23,6 +28,7 @@ const UserList = () => {
     setUser(users.filter((user) => user._id !== id));
     userService.deleteUser(id);
   };
+
   const listUser = users.map((user) => (
     <tr key={user._id}>
       <td>{user.name}</td>
@@ -30,7 +36,7 @@ const UserList = () => {
       <td>{user.poste}</td>
       <td>
         <button onClick={() => deleteUser(user._id)}>Delete</button>
-        <button>edit</button>
+        <button onClick={() => editUser(user)}>edit</button>
       </td>
     </tr>
   ));
@@ -40,7 +46,7 @@ const UserList = () => {
         <Button variant='primary' onClick={handleShow}>
           Ajout
         </Button>
-        <ShowContext.Provider value={{ show, handleClose }}>
+        <ShowContext.Provider value={{ show, handleClose, data }}>
           <Modals />
         </ShowContext.Provider>
         <table>
