@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import userService from '../../service/user.service';
+import { ShowContext } from '../userList/userList';
 
 function FormAddEdit() {
+  const value = useContext(ShowContext);
+
   const [user, setUser] = useState({});
 
   const handleChange = (event) => {
@@ -14,14 +17,25 @@ function FormAddEdit() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    userService.addUser(user).then(
-      (res) => {
-        console.log('res', res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    if (!value.data) {
+      userService.addUser(user).then(
+        (res) => {
+          console.log('add res', res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    } else {
+      userService.editUser(value.data._id, user).then(
+        (res) => {
+          console.log('edit res', res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
   };
 
   return (
