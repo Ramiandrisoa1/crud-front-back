@@ -1,21 +1,64 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
+import { useState } from 'react';
+import userService from '../../service/user.service';
 
 function FormAddEdit() {
+  const [user, setUser] = useState({});
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setUser((values) => ({ ...values, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    userService.addUser(user).then(
+      (res) => {
+        console.log('res', res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group className='mb-3' controlId='formBasicEmail'>
         <Form.Label>Nom</Form.Label>
-        <Form.Control type='text' placeholder='Entrer Nom' />
+        <Form.Control
+          type='text'
+          placeholder='Entrer Nom'
+          name='name'
+          value={user.name || ''}
+          onChange={handleChange}
+        />
       </Form.Group>
       <Form.Group className='mb-3' controlId='formBasicText'>
         <Form.Label>Email</Form.Label>
-        <Form.Control type='email' placeholder='Entrer Email' />
+        <Form.Control
+          type='email'
+          placeholder='Entrer Email'
+          name='email'
+          value={user.email || ''}
+          onChange={handleChange}
+        />
       </Form.Group>
       <Form.Group className='mb-3' controlId='formBasicPoste'>
         <Form.Label>Poste</Form.Label>
-        <Form.Control type='text' placeholder='Entrer Poste' />
+        <Form.Control
+          type='text'
+          placeholder='Entrer Poste'
+          name='poste'
+          value={user.poste || ''}
+          onChange={handleChange}
+        />
       </Form.Group>
+      <Button variant='primary' type='submit'>
+        save
+      </Button>
     </Form>
   );
 }
