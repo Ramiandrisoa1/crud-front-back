@@ -10,9 +10,15 @@ const deleteUser = async (id) => {
   return response;
 };
 
+const addUser = async (payload) => {
+  const response = await api.post(`/add-user`, payload);
+  return response;
+};
+
 const userService = {
   getAllUser,
   deleteUser,
+  addUser,
 };
 
 export default userService;
