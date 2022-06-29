@@ -1,5 +1,5 @@
-import React, { useState, createContext } from 'react';
-import User from './user';
+import React, { useState, createContext, useEffect } from 'react';
+import userService from '../../service/user.service';
 import { Button } from 'react-bootstrap';
 import Modals from '../modal/modal';
 
@@ -9,6 +9,31 @@ const UserList = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const initialValue = [];
+
+  const [users, setUser] = useState(initialValue);
+
+  useEffect(() => {
+    userService.getAllUser().then((res) => {
+      setUser(res);
+    });
+  }, []);
+
+  const deleteUser = (id) => {
+    setUser(users.filter((user) => user._id !== id));
+    userService.deleteUser(id);
+  };
+  const listUser = users.map((user) => (
+    <tr key={user._id}>
+      <td>{user.name}</td>
+      <td>{user.email}</td>
+      <td>{user.poste}</td>
+      <td>
+        <button onClick={() => deleteUser(user._id)}>Delete</button>
+        <button>edit</button>
+      </td>
+    </tr>
+  ));
   return (
     <>
       <div>
@@ -27,7 +52,7 @@ const UserList = () => {
               <th>Action</th>
             </tr>
           </thead>
-          <User />
+          <tbody>{listUser}</tbody>
         </table>
       </div>
     </>
