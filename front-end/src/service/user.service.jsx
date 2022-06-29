@@ -16,7 +16,7 @@ const addUser = async (payload) => {
 };
 
 const editUser = async (id, payload) => {
-  const response = await api.put(`/edit/${id}`, payload);
+  const response = await api.post(`/edit/${id}`, payload);
   return response;
 };
 
