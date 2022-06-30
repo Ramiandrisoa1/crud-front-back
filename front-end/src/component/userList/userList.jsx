@@ -50,7 +50,7 @@ const UserList = () => {
   ));
   return (
     <>
-      <div>
+      <div className='tbl-content'>
         <div className='btn-add-content'>
           <h1>Liste des utilisateurs</h1>
           <button className='btn-add' onClick={handleShow}>
