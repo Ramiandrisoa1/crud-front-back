@@ -8,9 +8,9 @@ function FormAddEdit() {
   const valueData = useContext(ShowContext);
 
   const initialState = {
-    name: valueData.data ? valueData.data.name : '',
-    email: valueData.data ? valueData.data.email : '',
-    poste: valueData.data ? valueData.data.poste : '',
+    name: valueData.dataEdit ? valueData.dataEdit.name : '',
+    email: valueData.dataEdit ? valueData.dataEdit.email : '',
+    poste: valueData.dataEdit ? valueData.dataEdit.poste : '',
   };
 
   const [user, setUser] = useState(initialState);
@@ -21,7 +21,7 @@ function FormAddEdit() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!valueData.data) {
+    if (!valueData.dataEdit) {
       userService.addUser(user).then(
         (res) => {
           console.log('add res', res);
@@ -31,7 +31,7 @@ function FormAddEdit() {
         }
       );
     } else {
-      userService.editUser(valueData.data._id, user).then(
+      userService.editUser(valueData.dataEdit._id, user).then(
         (res) => {
           console.log('edit res', res);
         },
