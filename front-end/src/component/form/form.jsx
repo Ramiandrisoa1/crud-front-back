@@ -5,19 +5,23 @@ import userService from '../../service/user.service';
 import { ShowContext } from '../userList/userList';
 
 function FormAddEdit() {
-  const value = useContext(ShowContext);
+  const valueData = useContext(ShowContext);
 
-  const [user, setUser] = useState({});
+  const initialState = {
+    name: valueData.data ? valueData.data.name : '',
+    email: valueData.data ? valueData.data.email : '',
+    poste: valueData.data ? valueData.data.poste : '',
+  };
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setUser((values) => ({ ...values, [name]: value }));
+  const [user, setUser] = useState(initialState);
+
+  const handleChange = ({ target: { value, name } }) => {
+    setUser({ ...user, [name]: value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!value.data) {
+    if (!valueData.data) {
       userService.addUser(user).then(
         (res) => {
           console.log('add res', res);
@@ -27,7 +31,7 @@ function FormAddEdit() {
         }
       );
     } else {
-      userService.editUser(value.data._id, user).then(
+      userService.editUser(valueData.data._id, user).then(
         (res) => {
           console.log('edit res', res);
         },

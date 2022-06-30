@@ -8,7 +8,10 @@ const ShowContext = createContext();
 const UserList = () => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState(null);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setData(null);
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
   const editUser = (user) => {
     setData(user);
