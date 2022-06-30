@@ -8,16 +8,32 @@ const ShowContext = createContext();
 
 const UserList = () => {
   const [show, setShow] = useState(false);
-  const [data, setData] = useState(null);
+  const [dataEdit, setDataEdit] = useState(null);
+  const [dataDelete, setDataDelete] = useState(null);
+  const [status, setstatus] = useState(null);
+
   const handleClose = () => {
-    setData(null);
+    setDataEdit(null);
     setShow(false);
   };
-  const handleShow = () => setShow(true);
-  const editUser = (user) => {
-    setData(user);
+
+  const addUser = () => {
     setShow(true);
+    setstatus('add');
   };
+
+  const editUser = (user) => {
+    setDataEdit(user);
+    setShow(true);
+    setstatus('edit');
+  };
+
+  const deleteUser = (user) => {
+    setDataDelete(user);
+    setShow(true);
+    setstatus('delete');
+  };
+
   const initialValue = [];
 
   const [users, setUser] = useState(initialValue);
@@ -28,18 +44,13 @@ const UserList = () => {
     });
   }, []);
 
-  const deleteUser = (id) => {
-    setUser(users.filter((user) => user._id !== id));
-    userService.deleteUser(id);
-  };
-
   const listUser = users.map((user) => (
     <tr key={user._id}>
       <td className='tbody-td-1'>{user.name}</td>
       <td className='tbody-td-2'>{user.email}</td>
       <td className='tbody-td-3'>{user.poste}</td>
       <td className='action'>
-        <button className='btn-action' onClick={() => deleteUser(user._id)}>
+        <button className='btn-action' onClick={() => deleteUser(user)}>
           Delete
         </button>
         <button className='btn-action' onClick={() => editUser(user)}>
@@ -53,11 +64,13 @@ const UserList = () => {
       <div className='tbl-content'>
         <div className='btn-add-content'>
           <h1>Liste des utilisateurs</h1>
-          <button className='btn-add' onClick={handleShow}>
+          <button className='btn-add' onClick={addUser}>
             Ajout
           </button>
         </div>
-        <ShowContext.Provider value={{ show, handleClose, data }}>
+        <ShowContext.Provider
+          value={{ show, handleClose, dataEdit, dataDelete, status }}
+        >
           <Modals />
         </ShowContext.Provider>
         <Table striped bordered hover>
