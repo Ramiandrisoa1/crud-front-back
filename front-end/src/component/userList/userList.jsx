@@ -1,7 +1,8 @@
 import React, { useState, createContext, useEffect } from 'react';
 import userService from '../../service/user.service';
-import { Button } from 'react-bootstrap';
 import Modals from '../modal/modal';
+import Table from 'react-bootstrap/Table';
+import './userList.css';
 
 const ShowContext = createContext();
 
@@ -34,35 +35,42 @@ const UserList = () => {
 
   const listUser = users.map((user) => (
     <tr key={user._id}>
-      <td>{user.name}</td>
-      <td>{user.email}</td>
-      <td>{user.poste}</td>
-      <td>
-        <button onClick={() => deleteUser(user._id)}>Delete</button>
-        <button onClick={() => editUser(user)}>edit</button>
+      <td className='tbody-td'>{user.name}</td>
+      <td className='tbody-td'>{user.email}</td>
+      <td className='tbody-td'>{user.poste}</td>
+      <td className='action'>
+        <button className='btn-action' onClick={() => deleteUser(user._id)}>
+          Delete
+        </button>
+        <button className='btn-action' onClick={() => editUser(user)}>
+          edit
+        </button>
       </td>
     </tr>
   ));
   return (
     <>
       <div>
-        <Button variant='primary' onClick={handleShow}>
-          Ajout
-        </Button>
+        <div className='btn-add-content'>
+          <h1>Liste des utilisateurs</h1>
+          <button className='btn-add' onClick={handleShow}>
+            Ajout
+          </button>
+        </div>
         <ShowContext.Provider value={{ show, handleClose, data }}>
           <Modals />
         </ShowContext.Provider>
-        <table>
-          <thead>
+        <Table striped bordered hover>
+          <thead className='tb-thead'>
             <tr>
               <th>Name</th>
-              <th>email</th>
-              <th>poste</th>
-              <th>Action</th>
+              <th>Email</th>
+              <th>Poste</th>
+              <th className='action'>Action</th>
             </tr>
           </thead>
-          <tbody>{listUser}</tbody>
-        </table>
+          <tbody className='tb-tbody'>{listUser}</tbody>
+        </Table>
       </div>
     </>
   );
