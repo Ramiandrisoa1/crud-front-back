@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useContext, forwardRef, useImperativeHandle } from 'react';
+import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 import userService from '../../service/user.service';
 import { ShowContext } from '../userList/userList';
 
-function FormAddEdit() {
+const FormAddEdit = forwardRef((props, ref) => {
   const valueData = useContext(ShowContext);
 
   const initialState = {
@@ -19,38 +19,42 @@ function FormAddEdit() {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!valueData.dataEdit) {
-      userService.addUser(user).then(
-        (res) => {
-          console.log('add res', res);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    } else {
-      userService.editUser(valueData.dataEdit._id, user).then(
-        (res) => {
-          console.log('edit res', res);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    }
-  };
+  useImperativeHandle(ref, () => ({
+    handleSubmit(event) {
+      event.preventDefault();
+      if (!valueData.dataEdit) {
+        userService.addUser(user).then(
+          (res) => {
+            console.log('add res', res);
+            valueData.handleClose();
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      } else {
+        userService.editUser(valueData.dataEdit._id, user).then(
+          (res) => {
+            console.log('edit res', res);
+            valueData.handleClose();
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      }
+    },
+  }));
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <Form.Group className='mb-3' controlId='formBasicEmail'>
         <Form.Label>Nom</Form.Label>
         <Form.Control
           type='text'
           placeholder='Entrer Nom'
           name='name'
-          value={user.name || ''}
+          value={user.name}
           onChange={handleChange}
         />
       </Form.Group>
@@ -60,7 +64,7 @@ function FormAddEdit() {
           type='email'
           placeholder='Entrer Email'
           name='email'
-          value={user.email || ''}
+          value={user.email}
           onChange={handleChange}
         />
       </Form.Group>
@@ -70,15 +74,12 @@ function FormAddEdit() {
           type='text'
           placeholder='Entrer Poste'
           name='poste'
-          value={user.poste || ''}
+          value={user.poste}
           onChange={handleChange}
         />
       </Form.Group>
-      <Button variant='primary' type='submit'>
-        save
-      </Button>
     </Form>
   );
-}
+});
 
 export default FormAddEdit;

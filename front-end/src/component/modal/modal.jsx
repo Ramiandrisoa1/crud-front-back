@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { ShowContext } from '../userList/userList';
 import FormAddEdit from '../form/form';
@@ -10,6 +10,13 @@ function Modals() {
   const deleteUser = () => {
     // setUser(users.filter((user) => user._id !== id));
     userService.deleteUser(value.dataDelete._id);
+    value.handleClose();
+  };
+
+  const childRef = useRef(null);
+
+  const handleClick = (event) => {
+    childRef.current.handleSubmit(event);
   };
 
   return (
@@ -43,13 +50,15 @@ function Modals() {
                     <Modal.Title>Modification</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <FormAddEdit />
+                    <FormAddEdit ref={childRef} />
                   </Modal.Body>
                   <Modal.Footer>
                     <Button variant='secondary' onClick={value.handleClose}>
                       Close
                     </Button>
-                    <Button variant='primary'>Modifier</Button>
+                    <Button variant='primary' onClick={handleClick}>
+                      Modifier
+                    </Button>
                   </Modal.Footer>
                 </>
               );
@@ -60,13 +69,15 @@ function Modals() {
                     <Modal.Title>Ajout</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <FormAddEdit />
+                    <FormAddEdit ref={childRef} />
                   </Modal.Body>
                   <Modal.Footer>
                     <Button variant='secondary' onClick={value.handleClose}>
                       Close
                     </Button>
-                    <Button variant='primary'>Ajouter</Button>
+                    <Button variant='primary' onClick={handleClick}>
+                      Ajouter
+                    </Button>
                   </Modal.Footer>
                 </>
               );
