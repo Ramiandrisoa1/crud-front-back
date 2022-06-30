@@ -39,10 +39,12 @@
 .tb-thead {
   background: #00713d;
   color: #ffde00;
+  border: #00713d;
 }
 .tb-tbody {
   background: #ffde00;
   color: #00713d;
+  border: #00713d;
 }
 .tbody-td-1,
 .tbody-td-2,
