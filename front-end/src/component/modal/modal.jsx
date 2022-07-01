@@ -8,7 +8,9 @@ function Modals() {
   const value = useContext(ShowContext);
 
   const deleteUser = () => {
-    // setUser(users.filter((user) => user._id !== id));
+    value.setUser(
+      value.users.filter((user) => user._id !== value.dataDelete._id)
+    );
     userService.deleteUser(value.dataDelete._id);
     value.handleClose();
   };

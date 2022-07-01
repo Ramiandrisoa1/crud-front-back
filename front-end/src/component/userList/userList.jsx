@@ -69,7 +69,15 @@ const UserList = () => {
           </button>
         </div>
         <ShowContext.Provider
-          value={{ show, handleClose, dataEdit, dataDelete, status }}
+          value={{
+            show,
+            handleClose,
+            dataEdit,
+            dataDelete,
+            status,
+            setUser,
+            users,
+          }}
         >
           <Modals />
         </ShowContext.Provider>
