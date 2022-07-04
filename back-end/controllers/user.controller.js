@@ -67,7 +67,10 @@ const updateUser = async (req, res) => {
           message: `Cannot update Product with id=${id}. Maybe Product was not found!`,
         });
       } else
-        res.send({ message: `Product  with id=${id} update avec succes.` });
+        res.send({
+          message: `Product  with id=${id} update avec succes.`,
+          data,
+        });
     })
     .catch((err) => {
       res.status(500).send({
