@@ -7,6 +7,8 @@ import { ShowContext } from '../userList/userList';
 const FormAddEdit = forwardRef((props, ref) => {
   const valueData = useContext(ShowContext);
 
+  console.log(valueData);
+
   const initialState = {
     name: valueData.dataEdit ? valueData.dataEdit.name : '',
     email: valueData.dataEdit ? valueData.dataEdit.email : '',
@@ -42,8 +44,19 @@ const FormAddEdit = forwardRef((props, ref) => {
       } else {
         userService.editUser(valueData.dataEdit._id, user).then(
           (res) => {
-            console.log('edit res', res);
+            console.log(res);
             valueData.handleClose();
+            // valueData.setUser([
+            //   ...valueData.users,
+            //   [valueData.dataEdit._id] : user,
+            // ]);
+            valueData.setUser(
+              valueData.users.map((users) => {
+                return users._id === valueData.dataEdit._id
+                  ? res.data.data
+                  : users;
+              })
+            );
           },
           (err) => {
             console.log(err);
