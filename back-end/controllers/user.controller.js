@@ -6,6 +6,7 @@ const addUser = async (req, res) => {
     user.save();
     return res.status(201).json({
       message: 'succès',
+      user,
     });
   } catch (error) {
     res.status(400).send(error.message);
