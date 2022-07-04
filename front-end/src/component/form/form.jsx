@@ -25,8 +25,15 @@ const FormAddEdit = forwardRef((props, ref) => {
       if (!valueData.dataEdit) {
         userService.addUser(user).then(
           (res) => {
-            console.log('add res', res);
+            console.log(res);
             valueData.handleClose();
+            const addData = {
+              _id: res.data.user._id,
+              name: res.data.user.name,
+              email: res.data.user.email,
+              poste: res.data.user.poste,
+            };
+            valueData.setUser([...valueData.users, addData]);
           },
           (err) => {
             console.log(err);
