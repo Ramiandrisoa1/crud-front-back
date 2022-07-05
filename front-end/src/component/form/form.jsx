@@ -50,11 +50,16 @@ const FormAddEdit = forwardRef((props, ref) => {
             //   ...valueData.users,
             //   [valueData.dataEdit._id] : user,
             // ]);
+            const editData = {
+              _id: valueData.dataEdit._id,
+              name: user.name,
+              email: user.email,
+              poste: user.poste,
+            };
+            console.log(editData);
             valueData.setUser(
               valueData.users.map((users) => {
-                return users._id === valueData.dataEdit._id
-                  ? res.data.data
-                  : users;
+                return users._id === valueData.dataEdit._id ? editData : users;
               })
             );
           },
