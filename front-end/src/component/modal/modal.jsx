@@ -3,6 +3,8 @@ import { Modal, Button } from 'react-bootstrap';
 import { ShowContext } from '../userList/userList';
 import FormAddEdit from '../form/form';
 import userService from '../../service/user.service';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Modals() {
   const value = useContext(ShowContext);
@@ -11,8 +13,27 @@ function Modals() {
     value.setUser(
       value.users.filter((user) => user._id !== value.dataDelete._id)
     );
-    userService.deleteUser(value.dataDelete._id);
-    value.handleClose();
+    userService.deleteUser(value.dataDelete._id).then(
+      (res) => {
+        console.log(res);
+        toast.success(
+          `La suppression de ${value.dataDelete.name} est réussie`,
+          {
+            autoClose: 1000,
+          }
+        );
+        value.handleClose();
+      },
+      (err) => {
+        console.log(err);
+        toast.success(
+          `La suppression de ${value.dataDelete.name} est réussie`,
+          {
+            autoClose: 1000,
+          }
+        );
+      }
+    );
   };
 
   const childRef = useRef(null);
