@@ -4,6 +4,7 @@ import Modals from '../modal/modal';
 import Table from 'react-bootstrap/Table';
 import './userList.css';
 import { ToastContainer } from 'react-toastify';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ShowContext = createContext();
 
@@ -52,7 +53,7 @@ const UserList = () => {
       <td className='tbody-td-3'>{user.poste}</td>
       <td className='action'>
         <button className='btn-delete' onClick={() => deleteUser(user)}>
-          Delete
+          <i class='fa-solid fa-trash'></i>
         </button>
         <button className='btn-edit' onClick={() => editUser(user)}>
           edit
