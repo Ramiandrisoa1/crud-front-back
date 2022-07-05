@@ -3,6 +3,7 @@ import userService from '../../service/user.service';
 import Modals from '../modal/modal';
 import Table from 'react-bootstrap/Table';
 import './userList.css';
+import { ToastContainer } from 'react-toastify';
 
 const ShowContext = createContext();
 
@@ -61,6 +62,7 @@ const UserList = () => {
   ));
   return (
     <>
+      <ToastContainer />
       <div className='tbl-content'>
         <div className='btn-add-content'>
           <h1>Liste des utilisateurs</h1>
