@@ -9,6 +9,7 @@ import userService from '../../service/user.service';
 import { ShowContext } from '../userList/userList';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './form.css';
 
 const FormAddEdit = forwardRef((props, ref) => {
   const value = useContext(ShowContext);
@@ -78,6 +79,7 @@ const FormAddEdit = forwardRef((props, ref) => {
       <Form.Group className='mb-3' controlId='formBasicEmail'>
         <Form.Label>Nom</Form.Label>
         <Form.Control
+          className='form-ctrl'
           type='text'
           placeholder='Entrer Nom'
           name='name'
@@ -88,6 +90,7 @@ const FormAddEdit = forwardRef((props, ref) => {
       <Form.Group className='mb-3' controlId='formBasicText'>
         <Form.Label>Email</Form.Label>
         <Form.Control
+          className='form-ctrl'
           type='email'
           placeholder='Entrer Email'
           name='email'
@@ -98,6 +101,7 @@ const FormAddEdit = forwardRef((props, ref) => {
       <Form.Group className='mb-3' controlId='formBasicPoste'>
         <Form.Label>Poste</Form.Label>
         <Form.Control
+          className='form-ctrl'
           type='text'
           placeholder='Entrer Poste'
           name='poste'

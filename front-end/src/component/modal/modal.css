@@ -1,0 +1,31 @@
+.btn-submit {
+  margin: 0 10px;
+  background: #00713d;
+  border-color: #00713d;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 300ms ease-in-out;
+}
+
+.btn-submit:hover {
+  background: #fff;
+  border-color: #fff;
+  color: #00713d;
+}
+
+.btn-cancel {
+  margin: 0 10px;
+  background: #b22222;
+  border-color: #b22222;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 300ms ease-in-out;
+}
+
+.btn-cancel:hover {
+  background: #fff;
+  border-color: #fff;
+  color: #b22222;
+}

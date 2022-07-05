@@ -1,0 +1,14 @@
+.form-label {
+  font-weight: bold;
+}
+.form-ctrl::-webkit-input-placeholder {
+  opacity: 0.3;
+}
+
+.form-ctrl:-ms-input-placeholder {
+  opacity: 0.3;
+}
+
+.form-ctrl::placeholder {
+  opacity: 0.3;
+}

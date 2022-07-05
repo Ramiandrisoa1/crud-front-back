@@ -1,10 +1,11 @@
 import React, { useContext, useRef } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { ShowContext } from '../userList/userList';
 import FormAddEdit from '../form/form';
 import userService from '../../service/user.service';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './modal.css';
 
 function Modals() {
   const value = useContext(ShowContext);
@@ -57,12 +58,12 @@ function Modals() {
                     Voulez‑vous vraiment supprimer cet utilisateur ?
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant='secondary' onClick={value.handleClose}>
+                    <button className='btn-cancel' onClick={value.handleClose}>
                       Close
-                    </Button>
-                    <Button variant='primary' onClick={deleteUser}>
+                    </button>
+                    <button className='btn-submit' onClick={deleteUser}>
                       Confirmer
-                    </Button>
+                    </button>
                   </Modal.Footer>
                 </>
               );
@@ -76,12 +77,12 @@ function Modals() {
                     <FormAddEdit ref={childRef} />
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant='secondary' onClick={value.handleClose}>
+                    <button className='btn-cancel' onClick={value.handleClose}>
                       Close
-                    </Button>
-                    <Button variant='primary' onClick={handleClick}>
+                    </button>
+                    <button className='btn-submit' onClick={handleClick}>
                       Modifier
-                    </Button>
+                    </button>
                   </Modal.Footer>
                 </>
               );
@@ -95,12 +96,12 @@ function Modals() {
                     <FormAddEdit ref={childRef} />
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant='secondary' onClick={value.handleClose}>
+                    <button className='btn-cancel' onClick={value.handleClose}>
                       Close
-                    </Button>
-                    <Button variant='primary' onClick={handleClick}>
+                    </button>
+                    <button className='btn-submit' onClick={handleClick}>
                       Ajouter
-                    </Button>
+                    </button>
                   </Modal.Footer>
                 </>
               );

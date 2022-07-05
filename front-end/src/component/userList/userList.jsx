@@ -51,10 +51,10 @@ const UserList = () => {
       <td className='tbody-td-2'>{user.email}</td>
       <td className='tbody-td-3'>{user.poste}</td>
       <td className='action'>
-        <button className='btn-action' onClick={() => deleteUser(user)}>
+        <button className='btn-delete' onClick={() => deleteUser(user)}>
           Delete
         </button>
-        <button className='btn-action' onClick={() => editUser(user)}>
+        <button className='btn-edit' onClick={() => editUser(user)}>
           edit
         </button>
       </td>
