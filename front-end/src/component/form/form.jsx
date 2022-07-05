@@ -1,16 +1,20 @@
-import React, { useContext, forwardRef, useImperativeHandle } from 'react';
+import React, {
+  useContext,
+  forwardRef,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { Form } from 'react-bootstrap';
-import { useState } from 'react';
 import userService from '../../service/user.service';
 import { ShowContext } from '../userList/userList';
 
 const FormAddEdit = forwardRef((props, ref) => {
-  const valueData = useContext(ShowContext);
+  const value = useContext(ShowContext);
 
   const initialState = {
-    name: valueData.dataEdit ? valueData.dataEdit.name : '',
-    email: valueData.dataEdit ? valueData.dataEdit.email : '',
-    poste: valueData.dataEdit ? valueData.dataEdit.poste : '',
+    name: value.dataEdit ? value.dataEdit.name : '',
+    email: value.dataEdit ? value.dataEdit.email : '',
+    poste: value.dataEdit ? value.dataEdit.poste : '',
   };
 
   const [user, setUser] = useState(initialState);
@@ -22,38 +26,37 @@ const FormAddEdit = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     handleSubmit(event) {
       event.preventDefault();
-      if (!valueData.dataEdit) {
+      if (!value.dataEdit) {
         userService.addUser(user).then(
           (res) => {
             console.log(res);
-            valueData.handleClose();
+            value.handleClose();
             const addData = {
               _id: res.data.user._id,
               name: res.data.user.name,
               email: res.data.user.email,
               poste: res.data.user.poste,
             };
-            valueData.setUser([...valueData.users, addData]);
+            value.setUser([...value.users, addData]);
           },
           (err) => {
             console.log(err);
           }
         );
       } else {
-        userService.editUser(valueData.dataEdit._id, user).then(
+        userService.editUser(value.dataEdit._id, user).then(
           (res) => {
             console.log(res);
-            valueData.handleClose();
+            value.handleClose();
             const editData = {
-              _id: valueData.dataEdit._id,
+              _id: value.dataEdit._id,
               name: user.name,
               email: user.email,
               poste: user.poste,
             };
-            console.log(editData);
-            valueData.setUser(
-              valueData.users.map((users) => {
-                return users._id === valueData.dataEdit._id ? editData : users;
+            value.setUser(
+              value.users.map((users) => {
+                return users._id === value.dataEdit._id ? editData : users;
               })
             );
           },
