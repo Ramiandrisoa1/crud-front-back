@@ -69,7 +69,6 @@ const updateUser = async (req, res) => {
       } else
         res.send({
           message: `Product  with id=${id} update avec succes.`,
-          data,
         });
     })
     .catch((err) => {
