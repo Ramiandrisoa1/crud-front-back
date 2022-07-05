@@ -7,10 +7,11 @@ import React, {
 import { Form } from 'react-bootstrap';
 import userService from '../../service/user.service';
 import { ShowContext } from '../userList/userList';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormAddEdit = forwardRef((props, ref) => {
   const value = useContext(ShowContext);
-
   const initialState = {
     name: value.dataEdit ? value.dataEdit.name : '',
     email: value.dataEdit ? value.dataEdit.email : '',
@@ -30,7 +31,6 @@ const FormAddEdit = forwardRef((props, ref) => {
         userService.addUser(user).then(
           (res) => {
             console.log(res);
-            value.handleClose();
             const addData = {
               _id: res.data.user._id,
               name: res.data.user.name,
@@ -38,16 +38,18 @@ const FormAddEdit = forwardRef((props, ref) => {
               poste: res.data.user.poste,
             };
             value.setUser([...value.users, addData]);
+            toast.success('ajout avec succès', { autoClose: 1000 });
+            value.handleClose();
           },
           (err) => {
             console.log(err);
+            toast.error('erreur', { autoClose: 1000 });
           }
         );
       } else {
         userService.editUser(value.dataEdit._id, user).then(
           (res) => {
             console.log(res);
-            value.handleClose();
             const editData = {
               _id: value.dataEdit._id,
               name: user.name,
@@ -59,9 +61,12 @@ const FormAddEdit = forwardRef((props, ref) => {
                 return users._id === value.dataEdit._id ? editData : users;
               })
             );
+            toast.success('Modification avec succès', { autoClose: 1000 });
+            value.handleClose();
           },
           (err) => {
             console.log(err);
+            toast.error('erreur', { autoClose: 1000 });
           }
         );
       }
