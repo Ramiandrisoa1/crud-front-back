@@ -7,8 +7,6 @@ import { ShowContext } from '../userList/userList';
 const FormAddEdit = forwardRef((props, ref) => {
   const valueData = useContext(ShowContext);
 
-  console.log(valueData);
-
   const initialState = {
     name: valueData.dataEdit ? valueData.dataEdit.name : '',
     email: valueData.dataEdit ? valueData.dataEdit.email : '',
@@ -46,10 +44,6 @@ const FormAddEdit = forwardRef((props, ref) => {
           (res) => {
             console.log(res);
             valueData.handleClose();
-            // valueData.setUser([
-            //   ...valueData.users,
-            //   [valueData.dataEdit._id] : user,
-            // ]);
             const editData = {
               _id: valueData.dataEdit._id,
               name: user.name,
