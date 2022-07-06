@@ -40,7 +40,7 @@ function Modals() {
   const childRef = useRef(null);
 
   const handleClick = (event) => {
-    childRef.current.handleSubmit(event);
+    childRef.current.handleSubmitAddEdit(event);
   };
 
   return (
