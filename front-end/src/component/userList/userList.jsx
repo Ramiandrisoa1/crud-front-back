@@ -4,7 +4,8 @@ import Modals from '../modal/modal';
 import Table from 'react-bootstrap/Table';
 import './userList.css';
 import { ToastContainer } from 'react-toastify';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencil, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const ShowContext = createContext();
 
@@ -53,10 +54,10 @@ const UserList = () => {
       <td className='tbody-td-3'>{user.poste}</td>
       <td className='action'>
         <button className='btn-delete' onClick={() => deleteUser(user)}>
-          <i class='fa-solid fa-trash'></i>
+          <FontAwesomeIcon icon={faTrash} />
         </button>
         <button className='btn-edit' onClick={() => editUser(user)}>
-          edit
+          <FontAwesomeIcon icon={faPencil} />
         </button>
       </td>
     </tr>
@@ -68,7 +69,8 @@ const UserList = () => {
         <div className='btn-add-content'>
           <h1>Liste des utilisateurs</h1>
           <button className='btn-add' onClick={addUser}>
-            Ajout
+            <FontAwesomeIcon className='add-icon' icon={faPlus} />
+            Ajouter
           </button>
         </div>
         <ShowContext.Provider
