@@ -58,16 +58,10 @@
   color: #00713d;
   border: #00713d;
 }
-.tbody-td-1,
-.tbody-td-2,
-.tbody-td-3 {
+.tbody-td {
   color: #00713d !important;
   font-size: 18px;
   font-weight: 500;
-}
-.tbody-td-1 {
-  display: flex;
-  justify-content: center;
 }
 .tbl-content {
   padding: 40px;

@@ -49,9 +49,9 @@ const UserList = () => {
 
   const listUser = users.map((user) => (
     <tr key={user._id}>
-      <td className='tbody-td-1'>{user.name}</td>
-      <td className='tbody-td-2'>{user.email}</td>
-      <td className='tbody-td-3'>{user.poste}</td>
+      <td className='tbody-td'>{user.name}</td>
+      <td className='tbody-td'>{user.email}</td>
+      <td className='tbody-td'>{user.poste}</td>
       <td className='action'>
         <button className='btn-delete' onClick={() => deleteUser(user)}>
           <FontAwesomeIcon icon={faTrash} />
@@ -89,7 +89,7 @@ const UserList = () => {
         <Table striped bordered hover>
           <thead className='tb-thead'>
             <tr>
-              <th className='action'>Name</th>
+              <th>Name</th>
               <th>Email</th>
               <th>Poste</th>
               <th className='action'>Action</th>
