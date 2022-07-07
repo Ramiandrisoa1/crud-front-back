@@ -1,9 +1,4 @@
-import React, {
-  useContext,
-  forwardRef,
-  useImperativeHandle,
-  useState,
-} from 'react';
+import React, { useContext, forwardRef, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import userService from '../../service/user.service';
 import { ShowContext } from '../userList/userList';
@@ -29,7 +24,7 @@ const FormAddEdit = forwardRef((props, ref) => {
       .max(50, 'trop long!'),
   });
 
-  const { register, formState, handleSubmit, reset } = useForm({
+  const { register, formState, handleSubmit } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
@@ -47,8 +42,6 @@ const FormAddEdit = forwardRef((props, ref) => {
   const handleChange = ({ target: { value, name } }) => {
     setUser({ ...user, [name]: value });
   };
-
-
 
   function handleSubmitAddEdit(event) {
     if (!value.dataEdit) {
