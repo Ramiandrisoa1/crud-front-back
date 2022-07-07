@@ -10,31 +10,8 @@ import { ShowContext } from '../userList/userList';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './form.css';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 
 const FormAddEdit = forwardRef((props, ref) => {
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .required('ce champ est obligatoire')
-      .min(5, 'trop petit!')
-      .max(50, 'trop long!'),
-    email: Yup.string()
-      .email('email invalide')
-      .required("l'email est obligatoire"),
-    poste: Yup.string()
-      .required('ce champ est obligatoire')
-      .min(5, 'trop petit!')
-      .max(50, 'trop long!'),
-  });
-
-  const { register, formState, reset } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
-
-  const { errors } = formState;
-
   const value = useContext(ShowContext);
   const initialState = {
     name: value.dataEdit ? value.dataEdit.name : '',
@@ -64,7 +41,6 @@ const FormAddEdit = forwardRef((props, ref) => {
             value.setUser([...value.users, addData]);
             toast.success('ajout avec succès', { autoClose: 1000 });
             value.handleClose();
-            reset();
           },
           (err) => {
             console.log(err);
@@ -109,10 +85,8 @@ const FormAddEdit = forwardRef((props, ref) => {
             placeholder='Entrer Nom'
             name='name'
             value={user.name}
-            {...register('name')}
             onChange={handleChange}
           />
-          <small className='text-danger'>{errors.name?.message}</small>
         </Form.Group>
         <Form.Group className='mb-3' controlId='formBasicText'>
           <Form.Label>Email</Form.Label>
@@ -122,10 +96,8 @@ const FormAddEdit = forwardRef((props, ref) => {
             placeholder='Entrer Email'
             name='email'
             value={user.email}
-            {...register('email')}
             onChange={handleChange}
           />
-          <small className='text-danger'>{errors.email?.message}</small>
         </Form.Group>
         <Form.Group className='mb-3' controlId='formBasicPoste'>
           <Form.Label>Poste</Form.Label>
@@ -135,10 +107,8 @@ const FormAddEdit = forwardRef((props, ref) => {
             placeholder='Entrer Poste'
             name='poste'
             value={user.poste}
-            {...register('poste')}
             onChange={handleChange}
           />
-          <small className='text-danger'>{errors.poste?.message}</small>
         </Form.Group>
       </Form>
     </>
