@@ -29,7 +29,7 @@ const FormAddEdit = forwardRef((props, ref) => {
       .max(50, 'trop long!'),
   });
 
-  const { register, formState, reset } = useForm({
+  const { register, formState, handleSubmit, reset } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
@@ -48,58 +48,56 @@ const FormAddEdit = forwardRef((props, ref) => {
     setUser({ ...user, [name]: value });
   };
 
-  useImperativeHandle(ref, () => ({
-    handleSubmitAddEdit(event) {
-      event.preventDefault();
-      if (!value.dataEdit) {
-        userService.addUser(user).then(
-          (res) => {
-            console.log(res);
-            const addData = {
-              _id: res.data.user._id,
-              name: res.data.user.name,
-              email: res.data.user.email,
-              poste: res.data.user.poste,
-            };
-            value.setUser([...value.users, addData]);
-            toast.success('ajout avec succès', { autoClose: 1000 });
-            value.handleClose();
-          },
-          (err) => {
-            console.log(err);
-            toast.error('erreur', { autoClose: 1000 });
-          }
-        );
-      } else {
-        userService.editUser(value.dataEdit._id, user).then(
-          (res) => {
-            console.log(res);
-            const editData = {
-              _id: value.dataEdit._id,
-              name: user.name,
-              email: user.email,
-              poste: user.poste,
-            };
-            value.setUser(
-              value.users.map((users) => {
-                return users._id === value.dataEdit._id ? editData : users;
-              })
-            );
-            toast.success('Modification avec succès', { autoClose: 1000 });
-            value.handleClose();
-          },
-          (err) => {
-            console.log(err);
-            toast.error('erreur', { autoClose: 1000 });
-          }
-        );
-      }
-    },
-  }));
 
+
+  function handleSubmitAddEdit(event) {
+    if (!value.dataEdit) {
+      userService.addUser(user).then(
+        (res) => {
+          console.log(res);
+          const addData = {
+            _id: res.data.user._id,
+            name: res.data.user.name,
+            email: res.data.user.email,
+            poste: res.data.user.poste,
+          };
+          value.setUser([...value.users, addData]);
+          toast.success('ajout avec succès', { autoClose: 1000 });
+          value.handleClose();
+        },
+        (err) => {
+          console.log(err);
+          toast.error('erreur', { autoClose: 1000 });
+        }
+      );
+    } else {
+      userService.editUser(value.dataEdit._id, user).then(
+        (res) => {
+          console.log(res);
+          const editData = {
+            _id: value.dataEdit._id,
+            name: user.name,
+            email: user.email,
+            poste: user.poste,
+          };
+          value.setUser(
+            value.users.map((users) => {
+              return users._id === value.dataEdit._id ? editData : users;
+            })
+          );
+          toast.success('Modification avec succès', { autoClose: 1000 });
+          value.handleClose();
+        },
+        (err) => {
+          console.log(err);
+          toast.error('erreur', { autoClose: 1000 });
+        }
+      );
+    }
+  }
   return (
     <>
-      <Form>
+      <Form id='form-add-edit' onSubmit={handleSubmit(handleSubmitAddEdit)}>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Nom</Form.Label>
           <Form.Control

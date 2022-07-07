@@ -39,9 +39,7 @@ function Modals() {
 
   const childRef = useRef(null);
 
-  const handleClick = (event) => {
-    childRef.current.handleSubmitAddEdit(event);
-  };
+
 
   return (
     <>
@@ -80,7 +78,7 @@ function Modals() {
                     <button className='btn-cancel' onClick={value.handleClose}>
                       Close
                     </button>
-                    <button className='btn-submit' onClick={handleClick}>
+                    <button className='btn-submit' >
                       Modifier
                     </button>
                   </Modal.Footer>
@@ -99,7 +97,7 @@ function Modals() {
                     <button className='btn-cancel' onClick={value.handleClose}>
                       Close
                     </button>
-                    <button className='btn-submit' onClick={handleClick}>
+                    <button form='form-add-edit' type='submit' className='btn-submit'>
                       Ajouter
                     </button>
                   </Modal.Footer>
