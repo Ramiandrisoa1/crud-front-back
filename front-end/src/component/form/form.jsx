@@ -20,6 +20,7 @@ function FormAddEdit() {
       .required("l'email est obligatoire"),
     poste: Yup.string()
       .required('ce champ est obligatoire')
+
       .min(5, 'trop petit!')
       .max(50, 'trop long!'),
   });
