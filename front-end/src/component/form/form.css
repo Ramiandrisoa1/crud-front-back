@@ -12,3 +12,11 @@
 .form-ctrl::placeholder {
   opacity: 0.3;
 }
+
+.form-groupp:not(:first-child) {
+  margin-top: 20px;
+}
+
+.text-danger {
+  position: absolute;
+}

@@ -12,19 +12,20 @@ import * as Yup from 'yup';
 function FormAddEdit() {
   const validationSchema = Yup.object().shape({
     name: Yup.string()
-      .required('ce champ est obligatoire')
-      .min(5, 'trop petit!')
-      .max(50, 'trop long!'),
+      .required('Ce champ est obligatoire')
+      .min(3, 'Le nom est trop court !')
+      .max(25, 'Le nom est trop long!'),
     email: Yup.string()
-      .email('email invalide')
-      .required("l'email est obligatoire"),
+      .email('Votre adresse email est invalide')
+      .required("L'email est obligatoire"),
     poste: Yup.string()
-      .required('ce champ est obligatoire')
-      .min(5, 'trop petit!')
-      .max(50, 'trop long!'),
+      .required('Ce champ est obligatoire')
+      .min(3, 'La poste est trop courte !')
+      .max(25, 'La poste est trop long !'),
   });
 
-  const { register, formState, handleSubmit } = useForm({
+  const { register, formState, handleSubmit, reset } = useForm({
+    mode: 'all',
     resolver: yupResolver(validationSchema),
   });
 
@@ -57,6 +58,7 @@ function FormAddEdit() {
           value.setUser([...value.users, addData]);
           toast.success('ajout avec succès', { autoClose: 1000 });
           value.handleClose();
+          reset();
         },
         (err) => {
           console.log(err);
@@ -80,6 +82,7 @@ function FormAddEdit() {
           );
           toast.success('Modification avec succès', { autoClose: 1000 });
           value.handleClose();
+          reset();
         },
         (err) => {
           console.log(err);
@@ -91,7 +94,7 @@ function FormAddEdit() {
   return (
     <>
       <Form id='form-add-edit' onSubmit={handleSubmit(handleSubmitAddEdit)}>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className='form-groupp mb-3' controlId='formBasicEmail'>
           <Form.Label>Nom</Form.Label>
           <Form.Control
             className='form-ctrl'
@@ -104,7 +107,7 @@ function FormAddEdit() {
           />
           <small className='text-danger'>{errors.name?.message}</small>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicText'>
+        <Form.Group className='form-groupp mb-3' controlId='formBasicText'>
           <Form.Label>Email</Form.Label>
           <Form.Control
             className='form-ctrl'
@@ -117,7 +120,7 @@ function FormAddEdit() {
           />
           <small className='text-danger'>{errors.email?.message}</small>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicPoste'>
+        <Form.Group className='form-groupp mb-3' controlId='formBasicPoste'>
           <Form.Label>Poste</Form.Label>
           <Form.Control
             className='form-ctrl'
