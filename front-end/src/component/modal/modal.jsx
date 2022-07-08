@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import { Modal } from 'react-bootstrap';
 import { ShowContext } from '../userList/userList';
 import FormAddEdit from '../form/form';
@@ -37,10 +37,6 @@ function Modals() {
     );
   };
 
-  const childRef = useRef(null);
-
-
-
   return (
     <>
       <Modal show={value.show} onHide={value.handleClose}>
@@ -72,13 +68,17 @@ function Modals() {
                     <Modal.Title>Modification</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <FormAddEdit ref={childRef} />
+                    <FormAddEdit />
                   </Modal.Body>
                   <Modal.Footer>
                     <button className='btn-cancel' onClick={value.handleClose}>
                       Close
                     </button>
-                    <button form='form-add-edit' type='submit' className='btn-submit' >
+                    <button
+                      form='form-add-edit'
+                      type='submit'
+                      className='btn-submit'
+                    >
                       Modifier
                     </button>
                   </Modal.Footer>
@@ -91,13 +91,17 @@ function Modals() {
                     <Modal.Title>Ajout</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <FormAddEdit ref={childRef} />
+                    <FormAddEdit />
                   </Modal.Body>
                   <Modal.Footer>
                     <button className='btn-cancel' onClick={value.handleClose}>
                       Close
                     </button>
-                    <button form='form-add-edit' type='submit' className='btn-submit'>
+                    <button
+                      form='form-add-edit'
+                      type='submit'
+                      className='btn-submit'
+                    >
                       Ajouter
                     </button>
                   </Modal.Footer>

@@ -1,4 +1,4 @@
-import React, { useContext, forwardRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import userService from '../../service/user.service';
 import { ShowContext } from '../userList/userList';
@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
-const FormAddEdit = forwardRef((props, ref) => {
+function FormAddEdit() {
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .required('ce champ est obligatoire')
@@ -133,6 +133,6 @@ const FormAddEdit = forwardRef((props, ref) => {
       </Form>
     </>
   );
-});
+}
 
 export default FormAddEdit;
